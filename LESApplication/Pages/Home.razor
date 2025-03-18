@@ -1,0 +1,51 @@
+﻿@page "/"
+@using LESApplication.Models
+@using LESApplication.Services
+
+<PageTitle>LES</PageTitle>
+
+<h1>Lista Enlazada Simple</h1>
+
+<input type="text" name="valor" @bind-value="Valor" class="form-control" />
+<button @onclick="AgregarInicio" class="btn btn-success">Agregar nodo al Inicio</button>
+<button @onclick="AgregarFinal" class="btn btn-primary">Agregar nodo al final</button>
+
+<ul class="list-group">
+@{
+    Nodo nodoTemporal = Lista.PrimerNodo;
+    while (nodoTemporal != null)
+    {
+      <li class="list-group-item">@nodoTemporal.Informacion</li>
+      nodoTemporal = nodoTemporal.Referencia;
+    }
+}
+</ul>
+
+@code{
+    public string Valor { get; set; }
+
+    public LES Lista { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Lista = new LES();
+        base.OnInitialized();
+    }
+
+    public void AgregarFinal()
+    {
+        Lista.AgregarNodoFinal(CrearNodo());
+    }
+    public void AgregarInicio()
+    {
+        Lista.AgregarNodoInicio(CrearNodo());
+    }
+
+    Nodo CrearNodo()
+    {
+        Nodo nuevoNodo = new Nodo(Valor);
+        return nuevoNodo;
+    }
+
+
+}
