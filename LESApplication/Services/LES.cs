@@ -116,5 +116,38 @@ namespace LESApplication.Services
             }
 
         }
+        public string AgregarNodoAntesDePosicion(int posicion, string valor)
+        {
+            if (PrimerNodo == null)
+                return "La lista está vacía.";
+
+            if (posicion <= 1) //Si posicion es 1 insertar al inicio
+            {
+                AgregarNodoInicio(new Nodo(valor));
+                return $"Nodo '{valor}' agregado al inicio.";
+            }
+
+            Nodo nodoTemporal = PrimerNodo;
+            int contador = 1; 
+
+            //recorrido de posiciones
+            while (nodoTemporal.Referencia != null && contador < posicion - 1)
+            {
+                nodoTemporal = nodoTemporal.Referencia;
+                contador++;
+            }
+
+            if (contador != posicion - 1 || nodoTemporal.Referencia == null)
+                return "Posición fuera de rango.";
+
+            Nodo nuevoNodo = new Nodo(valor);
+            nuevoNodo.Referencia = nodoTemporal.Referencia;
+            nodoTemporal.Referencia = nuevoNodo;
+
+            return $"Nodo '{valor}' agregado antes de la posición {posicion}.";
+        }
+
+
+
     }
 }
