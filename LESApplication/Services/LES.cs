@@ -1,4 +1,5 @@
 ﻿using LESApplication.Models;
+using System.ComponentModel.Design;
 
 namespace LESApplication.Services
 {
@@ -147,7 +148,37 @@ namespace LESApplication.Services
             return $"Nodo '{valor}' agregado antes de la posición {posicion}.";
         }
 
+        public string InsertarEnPosicion(int posicion, Nodo nuevoNodo)
+        {
+            Nodo aux = new Nodo();
+            aux = PrimerNodo;
+            int contador = 1;
+            while (aux != null)
+            {
+                if (contador == 1 && posicion == 1)
+                {
+                    nuevoNodo.Referencia = PrimerNodo.Referencia;
+                    PrimerNodo = nuevoNodo;
+                    return $"Se insertó el nodo en la posicion {posicion}";
 
+                }
+
+                if (PrimerNodo.Referencia == null)
+                {
+                    return $"No se puede insertar en la posicion {posicion}";
+                }
+
+                else if (contador == posicion - 1)
+                {
+                    nuevoNodo.Referencia = aux.Referencia.Referencia;
+                    aux.Referencia = nuevoNodo;
+                    return $"Se insertó el nodo en la posicion {posicion}";
+                }
+                aux = aux.Referencia;
+                contador++;               
+            }
+            return "Error al insertar el nodo";
+        }
 
     }
 }
