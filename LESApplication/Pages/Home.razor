@@ -18,6 +18,11 @@
 <button @onclick="AgregarAntesDeX" class="btn btn-warning">Agregar antes de X</button>
 <p>@Mensaje</p>
 
+
+<input type="number" name="posicion" @bind-value="Posicion" class="form-control" placeholder="Posición en la lista" min="1" />
+<button @onclick="AgregarAntesDePosicion" class="btn btn-danger">Agregar antes de Posición</button>
+<p>@MensajePosicion</p>
+
 <ul class="list-group">
     @{
         Nodo nodoTemporal = Lista.PrimerNodo;
@@ -35,6 +40,8 @@
     public string MensajeBusqueda { get; set; }
     public string ValorX { get; set; }
     public string Mensaje { get; set; }
+    public string MensajePosicion { get; set; }
+    public int Posicion { get; set; }
 
     public LES Lista { get; set; }
 
@@ -106,6 +113,18 @@
         else
         {
             Mensaje = "ValorX o Valor no pueden ser nulos o vacíos";
+        }
+    }
+    public void AgregarAntesDePosicion()
+    {
+        if (!string.IsNullOrEmpty(Valor) && Posicion >= 0)
+        {
+            string mensaje = Lista.AgregarNodoAntesDePosicion(Posicion, Valor);
+            MensajePosicion = mensaje;
+        }
+        else
+        {
+            MensajePosicion = "Ingrese un valor y una posición válida.";
         }
     }
 
