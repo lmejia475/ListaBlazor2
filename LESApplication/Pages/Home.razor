@@ -25,6 +25,11 @@
 <button @onclick="AgregarDespuesDePosicion" class="btn btn-danger">Agregar despues de Posición</button>
 <p>@MensajePosicion</p>
 
+<button @onclick="MostrarRecorridoRecursivo" class="btn btn-dark">Recorrido Recursivo</button>
+<p>@RecorridoRecursivo</p>
+
+
+
 <ul class="list-group">
     @{
         Nodo nodoTemporal = Lista.PrimerNodo;
@@ -44,6 +49,7 @@
     public string Mensaje { get; set; }
     public string MensajePosicion { get; set; }
     public int Posicion { get; set; }
+    public string RecorridoRecursivo { get; set; }
 
     public LES Lista { get; set; }
 
@@ -61,6 +67,12 @@
     {
         Lista.AgregarNodoInicio(CrearNodo());
     }
+
+    public void MostrarRecorridoRecursivo()
+    {
+    RecorridoRecursivo = Lista.RecorrerRecursivo(Lista.PrimerNodo);
+    }
+
     public void BuscarNodoEnLista()
     {
         Nodo? nodoEncontrado = Lista.BuscarNodo(ValorBuscar);
@@ -154,6 +166,7 @@
             MensajePosicion = "Ingrese un valor y una posición válida.";
         }
     }
+
 
     Nodo CrearNodo()
     {

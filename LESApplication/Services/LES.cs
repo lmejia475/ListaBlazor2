@@ -203,6 +203,16 @@ namespace LESApplication.Services
             return "Error al insertar el nodo";
         }
 
+        public string RecorrerRecursivo(Nodo? nodo)
+        {
+            if (nodo == null)
+            {
+                return "null";
+            }
+
+            return nodo.ToString() + RecorrerRecursivo(nodo.Referencia);
+        }
+
 
     }
 }
