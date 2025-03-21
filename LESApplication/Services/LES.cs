@@ -153,6 +153,7 @@ namespace LESApplication.Services
             Nodo aux = new Nodo();
             aux = PrimerNodo;
             int contador = 1;
+
             while (aux != null)
             {
                 if (contador == 1 && posicion == 1)
@@ -179,6 +180,29 @@ namespace LESApplication.Services
             }
             return "Error al insertar el nodo";
         }
+
+
+        public string InsertarDespuesDePosicion(int posicion, Nodo nuevoNodo)
+        {
+            Nodo aux = new Nodo();
+            aux = PrimerNodo;
+            int contador = 1;
+
+            while (aux != null)
+            {
+
+                if (contador == posicion)
+                {
+                    nuevoNodo.Referencia = aux.Referencia;
+                    aux.Referencia = nuevoNodo;
+                    return $"Se insertó el nodo en la posicion {posicion}";
+                }
+                aux = aux.Referencia;
+                contador++;
+            }
+            return "Error al insertar el nodo";
+        }
+
 
     }
 }

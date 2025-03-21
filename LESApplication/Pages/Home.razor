@@ -22,6 +22,7 @@
 <input type="number" name="posicion" @bind-value="Posicion" class="form-control" placeholder="Posición en la lista" min="1" />
 <button @onclick="AgregarEnPosicion" class="btn btn-success">Agregar en la posición</button>
 <button @onclick="AgregarAntesDePosicion" class="btn btn-danger">Agregar antes de Posición</button>
+<button @onclick="AgregarDespuesDePosicion" class="btn btn-danger">Agregar despues de Posición</button>
 <p>@MensajePosicion</p>
 
 <ul class="list-group">
@@ -133,6 +134,19 @@
         if (!string.IsNullOrEmpty(Valor) && Posicion >= 0)
         {
             string mensaje = Lista.InsertarEnPosicion(Posicion, CrearNodo());
+            MensajePosicion = mensaje;
+        }
+        else
+        {
+            MensajePosicion = "Ingrese un valor y una posición válida.";
+        }
+    }
+
+    public void AgregarDespuesDePosicion()
+    {
+        if (!string.IsNullOrEmpty(Valor) && Posicion >= 0)
+        {
+            string mensaje = Lista.InsertarDespuesDePosicion(Posicion, CrearNodo());
             MensajePosicion = mensaje;
         }
         else
