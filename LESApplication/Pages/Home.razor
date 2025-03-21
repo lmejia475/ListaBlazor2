@@ -6,33 +6,37 @@
 
 <h1>Lista Enlazada Simple</h1>
 
-<input type="text" name="valor" @bind-value="Valor" class="form-control" />
-<button @onclick="AgregarInicio" class="btn btn-success">Agregar nodo al Inicio</button>
-<button @onclick="AgregarFinal" class="btn btn-primary">Agregar nodo al final</button>
-<input type="text" name="valorBuscar" @bind-value="ValorBuscar" class="form-control" placeholder="Buscar nodo" />
-<button @onclick="BuscarNodoEnLista" class="btn btn-info">Buscar Nodo</button>
-<p>@MensajeBusqueda</p>
+<div style="margin:5px">
+    <input type="text" name="valor" @bind-value="Valor" class="form-control" />
+    <button @onclick="AgregarInicio" class="btn btn-success">Agregar nodo al Inicio</button>
+    <button @onclick="AgregarFinal" class="btn btn-primary">Agregar nodo al final</button>
+</div>
 
+<div style="margin:5px">
+    <input type="text" name="valorBuscar" @bind-value="ValorBuscar" class="form-control" placeholder="Buscar nodo" />
+    <button @onclick="BuscarNodoEnLista" class="btn btn-info">Buscar Nodo</button>
+    <p>@MensajeBusqueda</p>
+</div>
+
+
+<div style="margin:5px">
 <input type="text" name="valor" @bind-value="ValorX" class="form-control" />
 <button @onclick="AgregarDespuesDeX" class="btn btn-warning">Agregar después de X</button>
 <button @onclick="AgregarAntesDeX" class="btn btn-warning">Agregar antes de X</button>
 <p>@Mensaje</p>
+</div>
 
-
+<div style="margin:5px">
 <input type="number" name="posicion" @bind-value="Posicion" class="form-control" placeholder="Posición en la lista" min="1" />
 <button @onclick="AgregarEnPosicion" class="btn btn-success">Agregar en la posición</button>
 <button @onclick="AgregarAntesDePosicion" class="btn btn-danger">Agregar antes de Posición</button>
 <button @onclick="AgregarDespuesDePosicion" class="btn btn-danger">Agregar despues de Posición</button>
 <p>@MensajePosicion</p>
-
+</div>
 <ul class="list-group">
     @{
         Nodo nodoTemporal = Lista.PrimerNodo;
-        while (nodoTemporal != null)
-        {
-            <li class="list-group-item">@nodoTemporal.Informacion</li>
-            nodoTemporal = nodoTemporal.Referencia;
-        }
+           @((MarkupString)@RecorridoListaRecursiva(nodoTemporal));
     }
 </ul>
 
@@ -153,6 +157,15 @@
         {
             MensajePosicion = "Ingrese un valor y una posición válida.";
         }
+    }
+
+    public string RecorridoListaRecursiva(Nodo primerNodo) {
+        if(primerNodo == null){
+            return "";
+        }
+        else {
+            return $"<li class='list-group-item'>{primerNodo.Informacion.ToString()}</li>" + RecorridoListaRecursiva(primerNodo.Referencia);
+        }   
     }
 
     Nodo CrearNodo()
