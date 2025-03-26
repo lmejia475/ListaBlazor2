@@ -213,6 +213,62 @@ namespace LESApplication.Services
             return nodo.ToString() + RecorrerRecursivo(nodo.Referencia);
         }
 
+        public string EliminarNodoDespuesDeX(string valorX)
+        {
+            if (PrimerNodo == null)
+                return "La lista está vacía.";
 
+            Nodo nodoTemporal = PrimerNodo;
+
+            //buscar nodo para eliminarlo
+            while (nodoTemporal != null && nodoTemporal.Informacion != valorX)
+            {
+                nodoTemporal = nodoTemporal.Referencia;
+            }
+
+            if (nodoTemporal == null)
+                return $"Nodo '{valorX}' no encontrado.";
+
+            if (nodoTemporal.Referencia == null)
+                return $"No hay un nodo después de '{valorX}' para eliminar.";
+
+            //eliminacion nodo
+            Nodo nodoAEliminar = nodoTemporal.Referencia;
+            nodoTemporal.Referencia = nodoAEliminar.Referencia; 
+
+            return $"Nodo '{nodoAEliminar.Informacion}' eliminado después de '{valorX}'.";
+        }
+
+        public string EliminarNodoEnPosicion(int posicion)
+        {
+            if (PrimerNodo == null)
+                return "La lista está vacía.";
+
+            if (posicion <= 0)
+                return "La posición debe ser mayor a 0.";
+
+            if (posicion == 1)
+            {
+                PrimerNodo = PrimerNodo.Referencia;
+                return "Primer nodo eliminado.";
+            }
+
+            Nodo nodoTemporal = PrimerNodo;
+            int contador = 1;
+
+            while (nodoTemporal.Referencia != null && contador < posicion - 1)
+            {
+                nodoTemporal = nodoTemporal.Referencia;
+                contador++;
+            }
+
+            if (nodoTemporal.Referencia == null)
+                return "Posición fuera de rango.";
+
+            Nodo nodoAEliminar = nodoTemporal.Referencia;
+            nodoTemporal.Referencia = nodoAEliminar.Referencia; 
+
+            return $"Nodo en posición {posicion} eliminado.";
+        }
     }
 }
