@@ -28,6 +28,13 @@
 <button @onclick="MostrarRecorridoRecursivo" class="btn btn-dark">Recorrido Recursivo</button>
 <p>@RecorridoRecursivo</p>
 
+<input type="text" name="valorEliminar" @bind-value="ValorEliminar" class="form-control" placeholder="Dato X" />
+<button @onclick="EliminarDespuesDeX" class="btn btn-morado">Eliminar después de X</button>
+<p>@MensajeEliminar</p>
+
+<input type="number" name="posicionEliminar" @bind-value="PosicionEliminar" class="form-control" placeholder="Posición" />
+<button @onclick="EliminarEnPosicion" class="btn btn-morado">Eliminar en posición</button>
+<p>@MensajeEliminarPosicion</p>
 
 <button @onclick="EliminarNodoAlFinal" class="btn btn-danger">Eliminar Nodo Final</button>
 <p>@MensajeEliminar</p>
@@ -45,6 +52,18 @@
     }
 </ul>
 
+<style>
+    .btn-morado {
+        background-color: #6f42c1; 
+        color: white; 
+        border: none; 
+    }
+    .btn-morado:hover {
+            background-color: #5a34a1; 
+        }
+
+</style> 
+
 @code {
     public string Valor { get; set; }
     public string ValorBuscar { get; set; }
@@ -52,9 +71,13 @@
     public string ValorX { get; set; }
     public string Mensaje { get; set; }
     public string MensajePosicion { get; set; }
-    public string MensajeEliminar { get; set; }
+    public string MensajeEliminarFinal { get; set; }
     public int Posicion { get; set; }
     public string RecorridoRecursivo { get; set; }
+    public string ValorEliminar { get; set; }
+    public string MensajeEliminar { get; set; }
+    public int PosicionEliminar { get; set; }
+    public string MensajeEliminarPosicion { get; set; }
 
     public LES Lista { get; set; }
 
@@ -172,13 +195,38 @@
         }
     }
 
+    public void EliminarDespuesDeX()
+    {
+        if (!string.IsNullOrEmpty(ValorEliminar))
+        {
+            string mensaje = Lista.EliminarNodoDespuesDeX(ValorEliminar);
+            MensajeEliminar = mensaje;
+        }
+        else
+        {
+            MensajeEliminar = "Ingrese un valor para eliminar después de X.";
+        }
+    }
+
+    public void EliminarEnPosicion()
+    {
+        if (PosicionEliminar > 0)
+        {
+            string mensaje = Lista.EliminarNodoEnPosicion(PosicionEliminar);
+            MensajeEliminarPosicion = mensaje;
+        }
+        else
+        {
+            MensajeEliminarPosicion = "Ingrese una posición válida mayor a 0.";
+        }
+    }
+
     public void EliminarNodoAlFinal()
     {
 
             string mensaje = Lista.EliminarNodoAlFinal();
-            MensajeEliminar = mensaje;
+            MensajeEliminarFinal = mensaje;
     }
-
 
     Nodo CrearNodo()
     {
