@@ -239,6 +239,51 @@ namespace LESApplication.Services
             return $"Nodo '{nodoAEliminar.Informacion}' eliminado después de '{valorX}'.";
         }
 
+        public string EliminarNodoAntesDeX(string valorX)
+        {
+            if (PrimerNodo == null)
+            {
+                return "Lista vacía.";
+            }
+
+            if (PrimerNodo.Informacion == valorX)
+            {
+                return $"No hay nodo anterior a '{valorX}' para eliminar.";
+            }
+
+            Nodo actual = PrimerNodo;
+            Nodo anterior = null;
+            Nodo anteriorDelAnterior = null;
+
+            while (actual != null && actual.Referencia != null && actual.Referencia.Informacion != valorX)
+            {
+                anteriorDelAnterior = anterior;
+                anterior = actual;
+                actual = actual.Referencia;
+            }
+
+            if (actual.Referencia == null || actual.Referencia.Informacion != valorX)
+            {
+                return $"Nodo '{valorX}' no encontrado.";
+            }
+
+            // ahora `actual` es el nodo que está justo antes de `valorX` y debe ser eliminado
+            if (anterior == null)
+            {
+                // El nodo a eliminar es el primero
+                PrimerNodo = actual.Referencia;
+            }
+            else
+            {
+                anterior.Referencia = actual.Referencia;
+            }
+
+            return $"Nodo anterior a '{valorX}' eliminado correctamente.";
+        }
+
+
+
+
         public string EliminarNodoEnPosicion(int posicion)
         {
             if (PrimerNodo == null)

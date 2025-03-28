@@ -30,6 +30,7 @@
 
 <input type="text" name="valorEliminar" @bind-value="ValorEliminar" class="form-control" placeholder="Dato X" />
 <button @onclick="EliminarDespuesDeX" class="btn btn-morado">Eliminar después de X</button>
+<button @onclick="EliminarAntesDeX" class="btn btn-morado">Eliminar antes de X</button>
 <p>@MensajeEliminar</p>
 
 <input type="number" name="posicionEliminar" @bind-value="PosicionEliminar" class="form-control" placeholder="Posición" />
@@ -207,6 +208,20 @@
             MensajeEliminar = "Ingrese un valor para eliminar después de X.";
         }
     }
+
+    public void EliminarAntesDeX()
+    {
+        if (!string.IsNullOrEmpty(ValorEliminar))
+        {
+            string mensaje = Lista.EliminarNodoAntesDeX(ValorEliminar);
+            MensajeEliminar = mensaje;
+        }
+        else
+        {
+            MensajeEliminar = "Ingrese un valor para eliminar antes de X.";
+        }
+    }
+
 
     public void EliminarEnPosicion()
     {
