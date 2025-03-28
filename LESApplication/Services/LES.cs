@@ -270,7 +270,7 @@ namespace LESApplication.Services
 
             return $"Nodo en posición {posicion} eliminado.";
         }
-    }
+    
         public string EliminarNodoAlFinal()
         {
             if (EstaVacia()) { return "La lista está vacía"; }
