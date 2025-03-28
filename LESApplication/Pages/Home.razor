@@ -29,6 +29,10 @@
 <p>@RecorridoRecursivo</p>
 
 
+<button @onclick="EliminarNodoAlFinal" class="btn btn-danger">Eliminar Nodo Final</button>
+<p>@MensajeEliminar</p>
+
+
 
 <ul class="list-group">
     @{
@@ -48,6 +52,7 @@
     public string ValorX { get; set; }
     public string Mensaje { get; set; }
     public string MensajePosicion { get; set; }
+    public string MensajeEliminar { get; set; }
     public int Posicion { get; set; }
     public string RecorridoRecursivo { get; set; }
 
@@ -165,6 +170,13 @@
         {
             MensajePosicion = "Ingrese un valor y una posición válida.";
         }
+    }
+
+    public void EliminarNodoAlFinal()
+    {
+
+            string mensaje = Lista.EliminarNodoAlFinal();
+            MensajeEliminar = mensaje;
     }
 
 
