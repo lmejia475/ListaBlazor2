@@ -271,4 +271,33 @@ namespace LESApplication.Services
             return $"Nodo en posición {posicion} eliminado.";
         }
     }
+        public string EliminarNodoAlFinal()
+        {
+            if (EstaVacia()) { return "La lista está vacía"; }
+            else
+            {
+                Nodo? aux = PrimerNodo;
+                if(PrimerNodo == UltimoNodo)
+                {
+                    PrimerNodo = null;
+                    UltimoNodo = null;
+                    return "Se eliminó el nodo final";
+                }
+
+                while (aux != UltimoNodo)
+                {
+
+                    if (aux.Referencia == UltimoNodo)
+                    {
+                        UltimoNodo = aux;
+                        UltimoNodo.Referencia = null;
+                        return "Se eliminó el nodo final";
+                    }
+                    aux = aux.Referencia;
+                }
+            }
+            return "Error al eliminar el nodo";
+        }
+
+        }
 }
