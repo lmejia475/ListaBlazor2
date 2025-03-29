@@ -9,6 +9,9 @@
 <input type="text" name="valor" @bind-value="Valor" class="form-control" />
 <button @onclick="AgregarInicio" class="btn btn-success">Agregar nodo al Inicio</button>
 <button @onclick="AgregarFinal" class="btn btn-primary">Agregar nodo al final</button>
+<button @onclick="OrdenarLista" class="btn btn-secondary">Ordenar Lista</button>
+<button @onclick="AgregarDespuesDe5" class="btn btn-warning">Agregar después de 5</button>
+<button @onclick="AgregarAntesDe5" class="btn btn-warning">Agregar antes de 5</button>
 <input type="text" name="valorBuscar" @bind-value="ValorBuscar" class="form-control" placeholder="Buscar nodo" />
 <button @onclick="BuscarNodoEnLista" class="btn btn-info">Buscar Nodo</button>
 <p>@MensajeBusqueda</p>
@@ -107,6 +110,53 @@
         {
             Mensaje = "ValorX o Valor no pueden ser nulos o vacíos";
         }
+    }
+    public void AgregarDespuesDe5()
+    {
+        if (!string.IsNullOrEmpty(Valor))
+        {
+
+            string mensaje = Lista.AgregarNodoDespuesDe5(Valor);
+
+            if (mensaje == "Nodo X no encontrado")
+            {
+                Mensaje = "Nodo X no existe";
+            }
+            else
+            {
+                Mensaje = $"Nodo '{Valor}'";
+            }
+        }
+        else
+        {
+            Mensaje = "ValorX o Valor no pueden ser nulos o vacíos";
+        }
+    }
+    public void AgregarAntesDe5()
+    {
+        if (!string.IsNullOrEmpty(Valor))
+        {
+
+            string mensaje = Lista.AgregarNodoAntesDe5(Valor);
+
+
+            if (mensaje == "Nodo X no encontrado")
+            {
+                Mensaje = "Nodo X no existe";
+            }
+            else
+            {
+                Mensaje = $"Nodo '{Valor}'";
+            }
+        }
+        else
+        {
+            Mensaje = "ValorX o Valor no pueden ser nulos o vacíos";
+        }
+    }
+    public void OrdenarLista()
+    {
+        Lista.OrdenarLista();
     }
 
     Nodo CrearNodo()
