@@ -9,6 +9,7 @@
 <input type="text" name="valor" @bind-value="Valor" class="form-control" />
 <button @onclick="AgregarInicio" class="btn btn-success">Agregar nodo al Inicio</button>
 <button @onclick="AgregarFinal" class="btn btn-primary">Agregar nodo al final</button>
+<button @onclick="OrdenarLista" class="btn btn-secondary">Ordenar Lista</button>
 <input type="text" name="valorBuscar" @bind-value="ValorBuscar" class="form-control" placeholder="Buscar nodo" />
 <button @onclick="BuscarNodoEnLista" class="btn btn-info">Buscar Nodo</button>
 <p>@MensajeBusqueda</p>
@@ -241,6 +242,10 @@
 
             string mensaje = Lista.EliminarNodoAlFinal();
             MensajeEliminarFinal = mensaje;
+    }
+    public void OrdenarLista()
+    {
+        Lista.OrdenarLista();
     }
 
     Nodo CrearNodo()

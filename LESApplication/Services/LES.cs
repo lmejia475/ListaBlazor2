@@ -343,6 +343,65 @@ namespace LESApplication.Services
             }
             return "Error al eliminar el nodo";
         }
+        public void OrdenarLista()
+        {
+            if (EstaVacia() || PrimerNodo.Referencia == null)
+            {
+                return;
+            }
 
+            Nodo listaOrdenada = null;
+            Nodo actual = PrimerNodo;
+
+            while (actual != null)
+            {
+                Nodo siguiente = actual.Referencia;
+
+                if (listaOrdenada == null || Comparar(actual.Informacion, listaOrdenada.Informacion) <= 0)
+                {
+
+                    actual.Referencia = listaOrdenada;
+                    listaOrdenada = actual;
+                }
+                else
+                {
+
+                    Nodo temp = listaOrdenada;
+                    while (temp.Referencia != null && Comparar(actual.Informacion, temp.Referencia.Informacion) > 0)
+                    {
+                        temp = temp.Referencia;
+                    }
+                    actual.Referencia = temp.Referencia;
+                    temp.Referencia = actual;
+                }
+
+                actual = siguiente;
+            }
+
+
+            PrimerNodo = listaOrdenada;
+            UltimoNodo = listaOrdenada;
+            if (UltimoNodo != null)
+            {
+                while (UltimoNodo.Referencia != null)
+                {
+                    UltimoNodo = UltimoNodo.Referencia;
+                }
+            }
         }
+
+
+        private int Comparar(string a, string b)
+        {
+
+            if (double.TryParse(a, out double numA) && double.TryParse(b, out double numB))
+            {
+                return numA.CompareTo(numB);
+            }
+
+            return string.Compare(a, b, StringComparison.OrdinalIgnoreCase);
+        }
+
+
+    }
 }
