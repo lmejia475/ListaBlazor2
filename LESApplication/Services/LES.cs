@@ -390,6 +390,28 @@ namespace LESApplication.Services
             }
         }
 
+        public string EliminarNodoAlInicio()
+        {
+            if (EstaVacia())
+            {
+                return "La lista está vacía";
+            }
+
+            Nodo? aux = PrimerNodo;
+
+            if (PrimerNodo == UltimoNodo)
+            {
+                PrimerNodo = null;
+                UltimoNodo = null;
+            }
+            else
+            {
+                PrimerNodo = PrimerNodo.Referencia;
+            }
+
+            aux = null;
+            return "Se eliminó el nodo al inicio";
+        }
 
         private int Comparar(string a, string b)
         {
