@@ -173,7 +173,7 @@ namespace LESApplication.Services
         {
             if (EstaVacia() || PrimerNodo.Referencia == null)
             {
-                return; // La lista está vacía o tiene un solo elemento, ya está ordenada
+                return; 
             }
 
             Nodo listaOrdenada = null;
@@ -185,13 +185,13 @@ namespace LESApplication.Services
 
                 if (listaOrdenada == null || Comparar(actual.Informacion, listaOrdenada.Informacion) <= 0)
                 {
-                    // Insertar al principio de la lista ordenada
+                    
                     actual.Referencia = listaOrdenada;
                     listaOrdenada = actual;
                 }
                 else
                 {
-                    // Buscar el punto de inserción en la lista ordenada
+                    
                     Nodo temp = listaOrdenada;
                     while (temp.Referencia != null && Comparar(actual.Informacion, temp.Referencia.Informacion) > 0)
                     {
@@ -204,7 +204,7 @@ namespace LESApplication.Services
                 actual = siguiente;
             }
 
-            // Actualizar PrimerNodo y UltimoNodo
+           
             PrimerNodo = listaOrdenada;
             UltimoNodo = listaOrdenada;
             if (UltimoNodo != null)
@@ -216,15 +216,15 @@ namespace LESApplication.Services
             }
         }
 
-        // Método auxiliar para comparar strings como números si es posible
+       
         private int Comparar(string a, string b)
         {
-            // Intentar convertir a números
+           
             if (double.TryParse(a, out double numA) && double.TryParse(b, out double numB))
             {
                 return numA.CompareTo(numB);
             }
-            // Si no son números, comparar como strings
+           
             return string.Compare(a, b, StringComparison.OrdinalIgnoreCase);
         }
     }
