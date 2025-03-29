@@ -44,7 +44,7 @@ namespace LESApplication.Services
                 nuevoNodo.Referencia = PrimerNodo;
                 PrimerNodo = nuevoNodo;
             }
-            return "Nodo agregado al final de la lista";
+            return "Nodo agregado al inicio de la lista";
         }
         public Nodo? BuscarNodo(string x)
         {
@@ -64,7 +64,7 @@ namespace LESApplication.Services
         }
 
 
-        public string AgregarNodoDespuesDeX(string x, String nuevoDato)
+        public string AgregarNodoDespuesDeX(string x, string nuevoDato)
         {
             Nodo? nodoX = BuscarNodo(x);
             if (nodoX != null)
@@ -72,23 +72,26 @@ namespace LESApplication.Services
                 Nodo nuevoNodo = new Nodo(nuevoDato);
                 nuevoNodo.Referencia = nodoX.Referencia;
                 nodoX.Referencia = nuevoNodo;
+
                 if (nodoX == UltimoNodo)
                 {
                     UltimoNodo = nuevoNodo;
                 }
+
+                return "Nodo agregado después de X";
             }
             else
             {
                 return "Nodo X no encontrado";
             }
-            return "Nodo agregado despues de x";
         }
-        public string AgregarNodoAntesDeX(string x, String nuevoDato)
+        public string AgregarNodoAntesDeX(string x, string nuevoDato)
         {
             Nodo? nodoX = BuscarNodo(x);
             if (nodoX != null)
             {
                 Nodo nuevoNodo = new Nodo(nuevoDato);
+
                 if (nodoX == PrimerNodo)
                 {
                     nuevoNodo.Referencia = PrimerNodo;
@@ -107,34 +110,66 @@ namespace LESApplication.Services
                         actual.Referencia = nuevoNodo;
                     }
                 }
-                return "Nodo Agregado antes de X";
 
+                return "Nodo agregado antes de X";
             }
             else
             {
                 return "Nodo X no encontrado";
             }
-
         }
 
-        public string AgregarNodoDespuesDe5( String nuevoDato)
+
+        public int ObtenerLongitud()
         {
-            Nodo? nodoX = BuscarNodo("5");
-            if (nodoX != null)
+            int longitud = 0;
+            Nodo? actual = PrimerNodo;
+            while (actual != null)
             {
-                Nodo nuevoNodo = new Nodo(nuevoDato);
-                nuevoNodo.Referencia = nodoX.Referencia;
-                nodoX.Referencia = nuevoNodo;
-                if (nodoX == UltimoNodo)
+                longitud++;
+                actual = actual.Referencia;
+            }
+            return longitud;
+        }
+
+        public void AgregarEnPosicion(int posicion, string dato)
+        {
+            int longitud = ObtenerLongitud();
+
+            if (posicion < 1 || posicion > longitud + 1)
+            {
+                throw new ArgumentException("La posición está fuera del rango.");
+            }
+
+            Nodo nuevoNodo = new Nodo(dato);
+
+            if (posicion == 1)
+            {
+                nuevoNodo.Referencia = PrimerNodo;
+                PrimerNodo = nuevoNodo;
+            }
+            else
+            {
+                Nodo? actual = PrimerNodo;
+                int contador = 1;
+
+                while (actual != null && contador < posicion - 1)
+                {
+                    actual = actual.Referencia;
+                    contador++;
+                }
+
+                nuevoNodo.Referencia = actual.Referencia;
+                actual.Referencia = nuevoNodo;
+
+                if (posicion == longitud + 1)
+
                 {
                     UltimoNodo = nuevoNodo;
                 }
             }
-            else
-            {
-                return "Nodo X no encontrado";
-            }
-            return "Nodo agregado despues de x";
+
+      
         }
         public string AgregarNodoAntesDe5(String nuevoDato)
         {
@@ -227,5 +262,24 @@ namespace LESApplication.Services
            
             return string.Compare(a, b, StringComparison.OrdinalIgnoreCase);
         }
+
+      
+        public void AgregarAntesDePosicion(int posicion, string dato)
+        {
+            if (posicion <= 1)
+            {
+                AgregarEnPosicion(1, dato); 
+            }
+            else
+            {
+                AgregarEnPosicion(posicion - 1, dato); 
+            }
+        }
+
+        public void AgregarDespuesDePosicion(int posicion, string dato)
+        {
+            AgregarEnPosicion(posicion + 1, dato); 
+        }
+
     }
 }
